@@ -1,0 +1,298 @@
+@model IEnumerable<BookNest.Models.Book>
+
+@{
+    ViewData["Title"] = "View Collection";
+}
+
+<style>
+    .collection-page {
+        padding: 35px 0;
+    }
+
+    .collection-heading {
+        color: #315C3A;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .collection-description {
+        color: #647567;
+        margin-bottom: 25px;
+    }
+
+    .collection-card {
+        background-color: #FAFDF9;
+        border: 1px solid #D1E5D0;
+        border-radius: 16px;
+        padding: 22px;
+        box-shadow: 0 5px 18px rgba(49, 92, 58, 0.06);
+    }
+
+    .collection-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 25px;
+    }
+
+    .btn-green {
+        background-color: #A8D5A2;
+        border: 1px solid #A8D5A2;
+        color: #24452B;
+        border-radius: 8px;
+        padding: 10px 17px;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .btn-green:hover {
+        background-color: #83B985;
+        border-color: #83B985;
+        color: white;
+    }
+
+    .btn-green-outline {
+        background-color: #FAFDF9;
+        border: 1px solid #A8D5A2;
+        color: #315C3A;
+        border-radius: 8px;
+        padding: 10px 17px;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .btn-green-outline:hover {
+        background-color: #DCEEDC;
+        color: #315C3A;
+    }
+
+    .collection-search {
+        max-width: 400px;
+        margin-bottom: 20px;
+    }
+
+    .collection-search input {
+        border: 1px solid #D1E5D0;
+        border-radius: 9px;
+        padding: 12px 15px;
+        background-color: #FFFFFF;
+    }
+
+    .collection-search input:focus {
+        border-color: #83B985;
+        box-shadow: 0 0 0 0.2rem rgba(131, 185, 133, 0.2);
+        outline: none;
+    }
+
+    .book-table {
+        margin-bottom: 0;
+        border-color: #D1E5D0;
+    }
+
+    .book-table thead th {
+        background-color: #DCEEDC;
+        color: #315C3A;
+        font-weight: 600;
+        padding: 15px;
+        white-space: nowrap;
+    }
+
+    .book-table tbody td {
+        padding: 14px 15px;
+        color: #35483A;
+        vertical-align: middle;
+    }
+
+    .book-table tbody tr:hover {
+        background-color: #F1F8F1;
+    }
+
+    .quantity-badge {
+        display: inline-block;
+        background-color: #DCEEDC;
+        color: #315C3A;
+        border-radius: 20px;
+        padding: 5px 12px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .empty-message {
+        background-color: #FAFDF9;
+        border: 1px solid #D1E5D0;
+        color: #315C3A;
+        padding: 25px;
+        border-radius: 12px;
+    }
+
+    @@media (max-width: 576px) {
+        .collection-page {
+            padding: 20px 0;
+        }
+
+        .collection-heading {
+            font-size: 27px;
+        }
+
+        .collection-card {
+            padding: 12px;
+        }
+
+        .collection-actions a {
+            flex: 1 1 auto;
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="container collection-page">
+
+    <h1 class="collection-heading">Our Book Collection</h1>
+
+    <p class="collection-description">
+        Explore all the books available in BookNest.
+    </p>
+
+    <div class="collection-actions">
+
+        <a asp-controller="Home"
+           asp-action="Index"
+           class="btn-green-outline">
+            Home
+        </a>
+
+        <a asp-controller="Books"
+           asp-action="Manage"
+           class="btn-green">
+            Manage Books
+        </a>
+
+        <a asp-controller="Books"
+           asp-action="Create"
+           class="btn-green-outline">
+            + Add New Book
+        </a>
+
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="empty-message">
+            <h4>No books available yet</h4>
+            <p class="mb-3">
+                Your collection is currently empty. Add your first book to get started.
+            </p>
+            <a asp-controller="Books"
+               asp-action="Create"
+               class="btn-green">
+                Add Your First Book
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="collection-card">
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                <h4 class="mb-0" style="color: #315C3A;">
+                    Available Books
+                </h4>
+
+                <span class="quantity-badge">
+                    Total Titles: @Model.Count()
+                </span>
+            </div>
+
+            <div class="collection-search">
+                <input type="text"
+                       id="bookSearch"
+                       class="form-control"
+                       placeholder="Search by title, author or category..."
+                       aria-label="Search books" />
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover book-table"
+                       id="bookTable">
+
+                    <thead>
+                        <tr>
+                            <th>Book Title</th>
+                            <th>Author</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Available</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var book in Model)
+                        {
+                            <tr>
+                                <td>@book.Title</td>
+                                <td>@book.Author</td>
+                                <td>@book.Category</td>
+                                <td>@book.Quantity</td>
+                                <td>
+                                    @if (book.AvailableQuantity > 0)
+                                    {
+                                        <span class="quantity-badge">
+                                            @book.AvailableQuantity
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">
+                                            Out of Stock
+                                        </span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+            <p id="noResults"
+               class="text-muted mt-3 mb-0"
+               style="display: none;">
+                No books match your search.
+            </p>
+
+        </div>
+    }
+
+</div>
+
+@section Scripts {
+    <script>
+        const searchInput = document.getElementById("bookSearch");
+
+        if (searchInput) {
+            searchInput.addEventListener("input", function () {
+                const searchText = this.value.toLowerCase().trim();
+                const rows = document.querySelectorAll("#bookTable tbody tr");
+                let visibleRows = 0;
+
+                rows.forEach(function (row) {
+                    const rowText = row.textContent.toLowerCase();
+                    const matches = rowText.includes(searchText);
+
+                    row.style.display = matches ? "" : "none";
+
+                    if (matches) {
+                        visibleRows++;
+                    }
+                });
+
+                const noResults = document.getElementById("noResults");
+
+                if (noResults) {
+                    noResults.style.display =
+                        visibleRows === 0 ? "block" : "none";
+                }
+            });
+        }
+    </script>
+}

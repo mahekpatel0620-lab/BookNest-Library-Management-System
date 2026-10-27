@@ -1,0 +1,189 @@
+/* =================================
+   BOOKNEST - PASTEL GREEN THEME
+   ================================= */
+
+:root {
+    --bg-color: #F1F8F1;
+    --surface-color: #FAFDF9;
+    --nav-color: #DCEEDC;
+    --primary-color: #A8D5A2;
+    --primary-hover: #83B985;
+    --heading-color: #315C3A;
+    --text-color: #35483A;
+    --border-color: #D1E5D0;
+    --white: #FFFFFF;
+    --danger-color: #D97979;
+    --warning-color: #E8C878;
+}
+
+/* General page styling */
+html {
+    font-size: 14px;
+    min-height: 100%;
+    position: relative;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--heading-color);
+    font-weight: 600;
+}
+
+/* Navigation bar */
+.navbar {
+    background-color: var(--nav-color) !important;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-brand,
+.navbar .nav-link {
+    color: var(--heading-color) !important;
+    font-weight: 500;
+}
+
+.navbar .nav-link:hover {
+    color: #507D53 !important;
+}
+
+/* Main containers */
+.container {
+    color: var(--text-color);
+}
+
+/* Cards */
+.card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(64, 100, 64, 0.08);
+}
+
+.card-header {
+    background-color: var(--nav-color);
+    color: var(--heading-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Buttons */
+.btn-primary,
+.btn-success {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: #24452B !important;
+}
+
+.btn-primary:hover,
+.btn-success:hover {
+    background-color: var(--primary-hover) !important;
+    border-color: var(--primary-hover) !important;
+    color: #FFFFFF !important;
+}
+
+.btn-outline-dark {
+    color: var(--heading-color);
+    border-color: var(--primary-hover);
+}
+
+.btn-outline-dark:hover {
+    background-color: var(--nav-color);
+    border-color: var(--primary-hover);
+    color: var(--heading-color);
+}
+
+/* Book collection cards */
+.book-card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(64, 100, 64, 0.12);
+}
+
+/* Tables */
+.table {
+    background-color: var(--surface-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+.table thead th {
+    background-color: var(--nav-color) !important;
+    color: var(--heading-color) !important;
+    border-color: var(--border-color);
+}
+
+.table tbody tr:hover {
+    background-color: #EDF6EB;
+}
+
+/* Forms */
+.form-control,
+.form-select {
+    background-color: var(--white);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-hover);
+    box-shadow: 0 0 0 0.2rem rgba(131, 185, 133, 0.2);
+}
+
+/* Links */
+a {
+    color: #467A4B;
+}
+
+a:hover {
+    color: var(--heading-color);
+}
+
+/* Alerts */
+.alert-info {
+    background-color: #E5F2E3;
+    border-color: var(--border-color);
+    color: var(--heading-color);
+}
+
+.alert-success {
+    background-color: #E2F2DF;
+    border-color: #B8DDB5;
+    color: var(--heading-color);
+}
+
+/* Footer */
+footer {
+    background-color: var(--nav-color);
+    color: var(--heading-color);
+    border-top: 1px solid var(--border-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .table {
+        font-size: 13px;
+    }
+}

@@ -1,0 +1,194 @@
+@model BookNest.Models.Book
+
+@{
+    ViewData["Title"] = "Edit Book";
+}
+
+<style>
+    .edit-page {
+        padding: 30px 15px;
+    }
+
+    .edit-card {
+        max-width: 700px;
+        margin: 0 auto;
+        background-color: #FAFDF9;
+        border: 1px solid #D1E5D0;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(49, 92, 58, 0.09);
+    }
+
+    .edit-header {
+        background-color: #DCEEDC;
+        padding: 25px;
+        border-bottom: 1px solid #D1E5D0;
+    }
+
+    .edit-header h2 {
+        color: #315C3A;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .edit-header p {
+        color: #54745A;
+        margin-bottom: 0;
+    }
+
+    .edit-body {
+        padding: 30px;
+    }
+
+    .edit-body .form-label {
+        color: #315C3A;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .edit-body .form-control {
+        padding: 11px 13px;
+        border: 1px solid #D1E5D0;
+        border-radius: 9px;
+        background-color: #FFFFFF;
+    }
+
+    .edit-body .form-control:focus {
+        border-color: #83B985;
+        box-shadow: 0 0 0 0.2rem rgba(131, 185, 133, 0.2);
+    }
+
+    .btn-save {
+        background-color: #A8D5A2;
+        color: #24452B;
+        border: none;
+        padding: 11px 22px;
+        border-radius: 9px;
+        font-weight: 600;
+    }
+
+    .btn-save:hover {
+        background-color: #83B985;
+        color: white;
+    }
+
+    .btn-cancel {
+        background-color: #FFFFFF;
+        color: #315C3A;
+        border: 1px solid #A8D5A2;
+        padding: 11px 22px;
+        border-radius: 9px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .btn-cancel:hover {
+        background-color: #DCEEDC;
+        color: #315C3A;
+    }
+</style>
+
+<div class="edit-page">
+    <div class="edit-card">
+
+        <div class="edit-header">
+            <h2>Edit Book Details</h2>
+            <p>Update the information for this book in your collection.</p>
+        </div>
+
+        <div class="edit-body">
+
+            <form asp-controller="Books"
+                  asp-action="Edit"
+                  asp-route-id="@Model.BookId"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+                <input type="hidden" asp-for="BookId" />
+
+                <div class="mb-3">
+                    <label asp-for="Title" class="form-label">
+                        Book Title
+                    </label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Author" class="form-label">
+                        Author Name
+                    </label>
+                    <input asp-for="Author" class="form-control" />
+                    <span asp-validation-for="Author"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Category" class="form-label">
+                        Category
+                    </label>
+                    <input asp-for="Category" class="form-control" />
+                    <span asp-validation-for="Category"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ISBN" class="form-label">
+                        ISBN
+                    </label>
+                    <input asp-for="ISBN" class="form-control" />
+                    <span asp-validation-for="ISBN"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Quantity" class="form-label">
+                        Total Quantity
+                    </label>
+                    <input asp-for="Quantity"
+                           type="number"
+                           min="0"
+                           class="form-control" />
+                    <span asp-validation-for="Quantity"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="AvailableQuantity" class="form-label">
+                        Available Quantity
+                    </label>
+                    <input asp-for="AvailableQuantity"
+                           type="number"
+                           min="0"
+                           class="form-control" />
+                    <span asp-validation-for="AvailableQuantity"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="submit" class="btn btn-save">
+                        Save Changes
+                    </button>
+
+                    <a asp-controller="Books"
+                       asp-action="Manage"
+                       class="btn-cancel">
+                        Cancel
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

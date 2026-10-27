@@ -1,0 +1,263 @@
+cshtml
+@{
+    ViewData["Title"] = "Home";
+}
+
+<style>
+    .home-container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 35px 20px;
+        color: #35483A;
+    }
+
+    .hero {
+        background: linear-gradient(135deg, #FAFDF9, #DCEEDC);
+        padding: 75px 25px;
+        border: 1px solid #D1E5D0;
+        border-radius: 24px;
+        text-align: center;
+        margin-bottom: 45px;
+        box-shadow: 0 8px 25px rgba(49, 92, 58, 0.07);
+    }
+
+    .hero h1 {
+        color: #315C3A;
+        font-size: clamp(2.2rem, 5vw, 4rem);
+        font-weight: 750;
+        margin-bottom: 20px;
+    }
+
+    .hero p {
+        color: #526B55;
+        font-size: 19px;
+        line-height: 1.8;
+        max-width: 720px;
+        margin: 0 auto 30px;
+    }
+
+    .section-title {
+        text-align: center;
+        color: #315C3A;
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
+
+    .feature-card {
+        height: 100%;
+        background: #FAFDF9;
+        border: 1px solid #D1E5D0;
+        border-radius: 18px;
+        padding: 30px 22px;
+        text-align: center;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 28px rgba(49, 92, 58, 0.12);
+    }
+
+    .feature-icon {
+        font-size: 42px;
+        margin-bottom: 15px;
+    }
+
+    .feature-card h3 {
+        color: #315C3A;
+        font-size: 23px;
+        margin-bottom: 15px;
+        font-weight: 650;
+    }
+
+    .feature-card p {
+        color: #526B55;
+        min-height: 55px;
+        line-height: 1.7;
+    }
+
+    .btn-booknest {
+        display: inline-block;
+        background: #A8D5A2;
+        color: #24452C;
+        padding: 12px 24px;
+        border-radius: 10px;
+        text-decoration: none;
+        border: 1px solid #A8D5A2;
+        font-weight: 600;
+        transition: 0.2s;
+    }
+
+    .btn-booknest:hover {
+        background: #83B985;
+        border-color: #83B985;
+        color: #203D27;
+    }
+
+    .btn-outline-booknest {
+        display: inline-block;
+        background: transparent;
+        color: #315C3A;
+        padding: 12px 24px;
+        border-radius: 10px;
+        border: 1px solid #9FC99D;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.2s;
+    }
+
+    .btn-outline-booknest:hover {
+        background: #DCEEDC;
+        color: #315C3A;
+    }
+
+    .quick-actions {
+        background: #EAF5E8;
+        border: 1px solid #D1E5D0;
+        border-radius: 18px;
+        padding: 35px 20px;
+        text-align: center;
+        margin-top: 45px;
+    }
+
+    .quick-actions p {
+        color: #526B55;
+    }
+
+    @@media (max-width: 576px) {
+        .hero {
+            padding: 45px 18px;
+        }
+
+        .hero p {
+            font-size: 16px;
+        }
+
+        .feature-card {
+            padding: 25px 18px;
+        }
+
+        .btn-booknest,
+        .btn-outline-booknest {
+            margin: 5px 0;
+        }
+    }
+</style>
+
+<div class="home-container">
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Welcome to BookNest 📚</h1>
+
+        <p>
+            Your personal library management system.
+            Discover books, organize your collection,
+            and manage library records in one convenient place.
+        </p>
+
+        <a asp-controller="Books"
+           asp-action="Index"
+           class="btn-booknest">
+            Explore Our Books
+        </a>
+
+        <a asp-controller="Books"
+           asp-action="Create"
+           class="btn-outline-booknest ms-2">
+            + Add New Book
+        </a>
+    </section>
+
+    <!-- Features Section -->
+    <section>
+        <h2 class="section-title">Explore BookNest</h2>
+
+        <div class="row g-4">
+
+            <!-- Book Collection -->
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">📖</div>
+
+                    <h3>Book Collection</h3>
+
+                    <p>
+                        Browse your library collection and
+                        explore the books available in your library.
+                    </p>
+
+                    <a asp-controller="Books"
+                       asp-action="Collection"
+                       class="btn-booknest">
+                        View Collection
+                    </a>
+                </div>
+            </div>
+
+            <!-- Add Books -->
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">➕</div>
+
+                    <h3>Add New Books</h3>
+
+                    <p>
+                        Add books with their title, author,
+                        category, ISBN, and quantity.
+                    </p>
+
+                    <a asp-controller="Books"
+                       asp-action="Create"
+                       class="btn-booknest">
+                        Add New Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Manage Books -->
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">🗂️</div>
+
+                    <h3>Manage Books</h3>
+
+                    <p>
+                        Update book details, check quantities,
+                        and remove records when necessary.
+                    </p>
+
+                    <a asp-controller="Books"
+                       asp-action="Manage"
+                       class="btn-booknest">
+                        Manage Books
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="quick-actions">
+        <h2 class="section-title">Manage Your Library</h2>
+
+        <p class="mb-4">
+            Keep your book collection organized and up to date.
+        </p>
+
+        <a asp-controller="Books"
+           asp-action="Manage"
+           class="btn-booknest">
+            Open Book Management
+        </a>
+
+        <a asp-controller="Home"
+           asp-action="Privacy"
+           class="btn-outline-booknest ms-2">
+            Privacy Policy
+        </a>
+    </section>
+
+</div>
+

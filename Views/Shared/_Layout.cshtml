@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - BookNest</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+
+    <style>
+        :root {
+            --light-green: #F1F8F1;
+            --pastel-green: #DCEEDC;
+            --button-green: #A8D5A2;
+            --hover-green: #83B985;
+            --dark-green: #315C3A;
+            --text-green: #35483A;
+            --border-green: #D1E5D0;
+            --white-green: #FAFDF9;
+        }
+
+        html {
+            min-height: 100%;
+            font-size: 14px;
+            position: relative;
+        }
+
+        body {
+            margin: 0;
+            margin-bottom: 60px;
+            background-color: var(--light-green);
+            color: var(--text-green);
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            background-color: var(--pastel-green);
+            border-bottom: 1px solid var(--border-green);
+            padding: 14px 0;
+            box-shadow: 0 2px 8px rgba(49, 92, 58, 0.05);
+        }
+
+        /* BookNest logo */
+        .navbar-brand {
+            color: var(--dark-green) !important;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-brand:hover {
+            color: var(--hover-green) !important;
+        }
+
+        /* Navigation links */
+        .navbar .nav-link {
+            color: var(--dark-green) !important;
+            font-weight: 500;
+            margin-left: 12px;
+            transition: color 0.2s ease;
+        }
+
+        .navbar .nav-link:hover {
+            color: #68966B !important;
+        }
+
+        .navbar-toggler {
+            border-color: var(--hover-green);
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 0.15rem rgba(131, 185, 133, 0.35);
+        }
+
+        /* Main page area */
+        main {
+            min-height: 70vh;
+            padding-top: 10px;
+            padding-bottom: 20px;
+        }
+
+        /* General headings */
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--dark-green);
+            font-weight: 600;
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--white-green);
+            border: 1px solid var(--border-green);
+            border-radius: 14px;
+            box-shadow: 0 4px 14px rgba(49, 92, 58, 0.07);
+        }
+
+        .card-header {
+            background-color: var(--pastel-green);
+            color: var(--dark-green);
+            border-bottom: 1px solid var(--border-green);
+        }
+
+        /* Buttons */
+        .btn-primary,
+        .btn-success {
+            background-color: var(--button-green);
+            border-color: var(--button-green);
+            color: #24452B;
+        }
+
+        .btn-primary:hover,
+        .btn-success:hover {
+            background-color: var(--hover-green);
+            border-color: var(--hover-green);
+            color: white;
+        }
+
+        .btn-outline-dark {
+            color: var(--dark-green);
+            border-color: var(--hover-green);
+        }
+
+        .btn-outline-dark:hover {
+            background-color: var(--pastel-green);
+            color: var(--dark-green);
+            border-color: var(--hover-green);
+        }
+
+        /* Forms */
+        .form-control,
+        .form-select {
+            background-color: var(--white-green);
+            color: var(--text-green);
+            border: 1px solid var(--border-green);
+            border-radius: 8px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--hover-green);
+            box-shadow: 0 0 0 0.2rem rgba(131, 185, 133, 0.2);
+        }
+
+        /* Tables */
+        .table {
+            color: var(--text-green);
+            border-color: var(--border-green);
+        }
+
+        .table thead th {
+            background-color: var(--pastel-green);
+            color: var(--dark-green);
+        }
+
+        .table tbody tr:hover {
+            background-color: #EDF6EB;
+        }
+
+        /* Links */
+        a {
+            color: #467A4B;
+        }
+
+        a:hover {
+            color: var(--dark-green);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--pastel-green);
+            border-top: 1px solid var(--border-green);
+            margin-top: 50px;
+            padding: 20px 0;
+            color: var(--dark-green);
+            text-align: center;
+        }
+
+        /* Mobile responsive design */
+        @@media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 24px;
+            }
+
+            .navbar .nav-link {
+                margin-left: 0;
+                padding: 10px 0;
+            }
+
+            main {
+                min-height: 60vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light">
+            <div class="container">
+
+                <a class="navbar-brand"
+                   asp-controller="Home"
+                   asp-action="Index">
+                    BookNest
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="Home"
+                               asp-action="Index">
+                                Home
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="Books"
+                               asp-action="Index">
+                                Books
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="Books"
+                               asp-action="Collection">
+                                Collection
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="Books"
+                               asp-action="Manage">
+                                Manage Books
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="Home"
+                               asp-action="Privacy">
+                                Privacy
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="container">
+        @RenderBody()
+    </main>
+
+    <footer>
+        <div class="container">
+            &copy; 2026 BookNest - Library Management System
+            <br />
+            <small>Every book opens a new world.</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

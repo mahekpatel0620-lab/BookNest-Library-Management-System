@@ -1,0 +1,261 @@
+@model IEnumerable<BookNest.Models.Book>
+
+@{
+ViewData["Title"] = "Manage Books";
+}
+
+<style>
+    .manage-page {
+        background-color: #F1F8F1;
+        min-height: 80vh;
+        padding: 35px 0;
+    }
+
+    .manage-heading {
+        color: #315C3A;
+        font-size: 2.2rem;
+        font-weight: 700;
+    }
+
+    .manage-description {
+        color: #617663;
+        margin-bottom: 25px;
+    }
+
+    .manage-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 25px;
+    }
+
+    .manage-btn {
+        background-color: #A8D5A2;
+        color: #24452B;
+        border: 1px solid #A8D5A2;
+        border-radius: 8px;
+        padding: 10px 16px;
+        text-decoration: none;
+        display: inline-block;
+        font-weight: 600;
+        transition: 0.2s;
+    }
+
+    .manage-btn:hover {
+        background-color: #83B985;
+        border-color: #83B985;
+        color: white;
+    }
+
+    .manage-btn-outline {
+        background-color: #FAFDF9;
+        color: #315C3A;
+        border: 1px solid #BBD8B8;
+        border-radius: 8px;
+        padding: 10px 16px;
+        text-decoration: none;
+        display: inline-block;
+        font-weight: 600;
+    }
+
+    .manage-btn-outline:hover {
+        background-color: #DCEEDC;
+        color: #315C3A;
+    }
+
+    .manage-table-card {
+        background-color: #FAFDF9;
+        border: 1px solid #D1E5D0;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 5px 18px rgba(49, 92, 58, 0.07);
+    }
+
+    .manage-table {
+        margin-bottom: 0;
+        color: #35483A;
+    }
+
+    .manage-table thead th {
+        background-color: #DCEEDC;
+        color: #315C3A;
+        padding: 16px 12px;
+        border-bottom: 1px solid #C7DFC5;
+        white-space: nowrap;
+    }
+
+    .manage-table tbody td {
+        padding: 14px 12px;
+        vertical-align: middle;
+        border-color: #E0EDE0;
+    }
+
+    .manage-table tbody tr:hover {
+        background-color: #F0F7EE;
+    }
+
+    .action-btn {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        margin: 2px;
+    }
+
+    .edit-btn {
+        background-color: #E8F0C9;
+        color: #52642C;
+        border: 1px solid #D5E3AC;
+    }
+
+    .edit-btn:hover {
+        background-color: #D9E7B4;
+        color: #35451C;
+    }
+
+    .delete-btn {
+        background-color: #F7DEDE;
+        color: #934747;
+        border: 1px solid #EBC4C4;
+    }
+
+    .delete-btn:hover {
+        background-color: #EEC5C5;
+        color: #793737;
+    }
+
+    .manage-empty {
+        background-color: #E5F2E3;
+        color: #315C3A;
+        border: 1px solid #D1E5D0;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    .manage-count {
+        color: #617663;
+        font-size: 0.95rem;
+    }
+
+    @@media (max-width: 576px) {
+        .manage-heading {
+            font-size: 1.8rem;
+        }
+
+        .manage-toolbar a {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="manage-page">
+    <div class="container">
+
+
+    <h1 class="manage-heading">Manage Books</h1>
+
+    <p class="manage-description">
+        Organize your library collection by adding, editing, and deleting books.
+    </p>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
+
+    <div class="manage-toolbar">
+        <a asp-controller="Home"
+           asp-action="Index"
+           class="manage-btn-outline">
+            ← Home
+        </a>
+
+        <a asp-controller="Books"
+           asp-action="Collection"
+           class="manage-btn-outline">
+            View Collection
+        </a>
+
+        <a asp-controller="Books"
+           asp-action="Create"
+           class="manage-btn">
+            + Add New Book
+        </a>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="manage-empty">
+            <h5>No books found</h5>
+            <p class="mb-0">
+                Your library is waiting for its first book.
+                Click "Add New Book" to get started.
+            </p>
+        </div>
+    }
+    else
+    {
+        <p class="manage-count">
+            Total books in your collection: @Model.Count()
+        </p>
+
+        <div class="manage-table-card table-responsive">
+            <table class="table manage-table table-hover">
+
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                        <th>ISBN</th>
+                        <th>Quantity</th>
+                        <th>Available</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var book in Model)
+                    {
+                        <tr>
+                            <td><strong>@book.Title</strong></td>
+                            <td>@book.Author</td>
+                            <td>@book.Category</td>
+                            <td>
+                                @* Displays ISBN only if your Book model has an ISBN property. *@
+                                @book.ISBN
+                            </td>
+                            <td>@book.Quantity</td>
+                            <td>@book.AvailableQuantity</td>
+
+                            <td>
+                                <a asp-controller="Books"
+                                   asp-action="Edit"
+                                   asp-route-id="@book.BookId"
+                                   class="action-btn edit-btn">
+                                    Edit
+                                </a>
+
+                                <a asp-controller="Books"
+                                   asp-action="Delete"
+                                   asp-route-id="@book.BookId"
+                                   class="action-btn delete-btn">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    }
+
+</div>
+
+
+</div>
